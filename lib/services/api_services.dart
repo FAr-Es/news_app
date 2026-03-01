@@ -1,7 +1,13 @@
-// import 'package:dio/dio.dart';
+import 'package:dio/dio.dart';
+import 'package:news_app/models/news_model.dart';
 
-// final dio = Dio();
+class ApiServices {
+  final dio = Dio();
 
-// void fetchNews() async{
-//   final response =await dio.get(path)
-// }
+  Future <NewsModel>fetchArticles() async {
+    final response = await dio.get(
+      'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=43cafb2de81b4de691d7862a8ee4ef57',
+    );
+    return NewsModel.fromJson(response.data);
+  }
+}

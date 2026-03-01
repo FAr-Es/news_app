@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/controller/cubit/news_cubit.dart';
 import 'package:news_app/home_page.dart';
 
 void main() {
@@ -11,10 +13,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(      
-      debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+    return BlocProvider(
+      create: (context) => NewsCubit(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: const HomePage(),
+      ),
     );
   }
 }
-

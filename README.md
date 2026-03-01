@@ -2,6 +2,14 @@
 
 A new Flutter project.
 
+## 📸 Screenshots
+
+| Home Screen | Article Detail |
+|:-----------:|:--------------:|
+| ![Home Screen](./screens/home_screen.png) | ![Detail Screen](./screens/details_screen.png.png) |
+
+---
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

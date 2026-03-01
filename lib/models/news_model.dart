@@ -1,21 +1,83 @@
 class NewsModel {
-  final String title;
-  final String subtitle;
-  final String image;
-  final String paragraph;
-  NewsModel({required this.title, required this.subtitle, required this.image, required this.paragraph});
+    final String? status;
+    final int? totalResults;
+    final List<Article>? articles;
 
-  static List<NewsModel>newsItem = [
-    NewsModel(title: "How to Setup Your Worksapce", subtitle: "Interior", image: 'assets/1.png', paragraph: """Forests are one of the most important natural resources that our planet possesses. Not only do they provide us with a diverse range of products such as timber, medicine, and food, but they also play a vital role in mitigating climate change and maintaining the overall health of our planet's ecosystems. In this article, we will explore the ways in which forests are helping our world.
-One of the most important roles that forests play is in absorbing carbon dioxide from the atmosphere. Trees absorb carbon dioxide through photosynthesis and store it in their trunks, branches, and leaves. This carbon sequestration helps to mitigate climate change by reducing the amount of greenhouse gases in the atmosphere. Forests are estimated to absorb approximately 2.4 billion tonnes of carbon dioxide each year, which is equivalent to around 10% of global greenhouse gas emissions.
-Forests also play a crucial role in maintaining the water cycle. Trees absorb water from the soil and release it back into the atmosphere through a process known as transpiration. This helps to regulate the local climate and prevents soil erosion and flooding. Forests also act as natural water filters, helping to purify water that flows through them.
-Forests are also important sources of biodiversity. They provide habitat for countless species of plants and animals, many of which are found nowhere else on earth. Forests also provide a source of food and medicine for many communities around the world. In fact, it is estimated that around 80% of the world's population relies on traditional medicine derived from plants, many of which are found in forests.
-In addition to their ecological and cultural importance, forests also provide economic benefits. They provide jobs and income for millions of people around the world, particularly in rural areas. Forests also provide timber, paper, and other products that are essential to many industries.
-"""),
-    NewsModel(title: "How to Setup Your Worksapce", subtitle: "Interior", image: 'assets/2.png', paragraph: "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."),
-    NewsModel(title: "How to Setup Your Worksapce", subtitle: "Interior", image: 'assets/3.png', paragraph: "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."),
-    NewsModel(title: "How to Setup Your Worksapce", subtitle: "Interior", image: 'assets/4.png', paragraph: "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."),
-    NewsModel(title: "How to Setup Your Worksapce", subtitle: "Interior", image: 'assets/5.png', paragraph: "orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."),
+    NewsModel({
+        this.status,
+        this.totalResults,
+        this.articles,
+    });
 
-  ];
+    factory NewsModel.fromJson(Map<String, dynamic> json) => NewsModel(
+        status: json["status"],
+        totalResults: json["totalResults"],
+        articles: json["articles"] == null ? [] : List<Article>.from(json["articles"]!.map((x) => Article.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "status": status,
+        "totalResults": totalResults,
+        "articles": articles == null ? [] : List<dynamic>.from(articles!.map((x) => x.toJson())),
+    };
+}
+
+class Article {
+    final Source? source;
+    final String? author;
+    final String? title;
+    final String? description;
+    final String? urlToImage;
+    final DateTime? publishedAt;
+    final String? content;
+
+    Article({
+        this.source,
+        this.author,
+        this.title,
+        this.description,
+        this.urlToImage,
+        this.publishedAt,
+        this.content,
+    });
+
+    factory Article.fromJson(Map<String, dynamic> json) => Article(
+        source: json["source"] == null ? null : Source.fromJson(json["source"]),
+        author: json["author"],
+        title: json["title"],
+        description: json["description"],
+        urlToImage: json["urlToImage"],
+        publishedAt: json["publishedAt"] == null ? null : DateTime.parse(json["publishedAt"]),
+        content: json["content"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "source": source?.toJson(),
+        "author": author,
+        "title": title,
+        "description": description,
+        "urlToImage": urlToImage,
+        "publishedAt": publishedAt?.toIso8601String(),
+        "content": content,
+    };
+}
+
+class Source {
+    final String? id;
+    final String? name;
+
+    Source({
+        this.id,
+        this.name,
+    });
+
+    factory Source.fromJson(Map<String, dynamic> json) => Source(
+        id: json["id"],
+        name: json["name"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+    };
 }

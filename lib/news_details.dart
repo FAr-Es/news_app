@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:news_app/models/news_model.dart';
 
 class NewsDetails extends StatelessWidget {
-  final NewsModel newsModel;
-  const NewsDetails({super.key, required this.newsModel});
+  final Article article;
+  const NewsDetails({super.key, required this.article});
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +16,8 @@ class NewsDetails extends StatelessWidget {
             left: 0,
             right: 0,
             height: 316,
-            child: Image.asset(
-              newsModel.image,
+            child: Image.network(
+              article.urlToImage ?? "https://placehold.co/400x316.png",
               fit: BoxFit.cover,
             ),
           ),
@@ -36,19 +36,28 @@ class NewsDetails extends StatelessWidget {
                 ),
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    newsModel.title,
+                    article.title!,
                     style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    "${article.author!} | ${article.publishedAt!.month}/${article.publishedAt!.day}/${article.publishedAt!.year}",
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                   const SizedBox(height: 16),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Text(
-                        newsModel.paragraph,
+                        article.content ?? "",
                         style: const TextStyle(fontSize: 16),
                       ),
                     ),
